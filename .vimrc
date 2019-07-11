@@ -1,31 +1,20 @@
 set encoding=UTF-8
 set shell=bash\ -i
-" バックアップファイルを作らない
 set nobackup
-" スワップファイルを作らない
 set noswapfile
-" 編集中のファイルが変更されたら自動で読み直す
 set autoread
-" バッファが編集中でもその他のファイルを開けるように
 set hidden
-" 入力中のコマンドをステータスに表示する
 set showcmd
+" setting terminal
 nnoremap <C-t><C-r> :below term<Space>++rows=10<Space>zsh<CR>
 command! -nargs=* -bar -bang -count=0 -complete=dir E Explore <args>
 noremap <S-h> ^
 noremap <S-l> $
 
-
-" 見た目系
-" 行番号を表示
 set number
-" 現在の行を強調表示
 set cursorline
-" 現在の行を強調表示（縦）
 set cursorcolumn
-" 行末の1文字先までカーソルを移動できるように
 set virtualedit=onemore
-" インデントはスマートインデント
 set smartindent
 set visualbell
 set showmatch
@@ -37,7 +26,6 @@ nnoremap k gk
 
 set list listchars=tab:\▸\-
 set expandtab
-" 行頭以外のTab文字の表示幅（スペースいくつ分）
 set tabstop=4
 set shiftwidth=4
 
@@ -51,7 +39,6 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 nmap st :tabnew<CR><Esc>
 nmap sn gt
 nmap sp gT
-
 
 set clipboard=unnamed,autoselect
 autocmd Filetype ruby set softtabstop=2
@@ -76,7 +63,6 @@ autocmd BufWritePre * :%s/\s\+$//ge
 syntax enable
 colorscheme lucario
 
-" dein.vim の導入のためのボイラープレート
 if &compatible
   set nocompatible               " Be iMproved
 endif
