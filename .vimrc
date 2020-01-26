@@ -36,9 +36,6 @@ set incsearch
 set wrapscan
 set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
-nmap st :tabnew<CR><Esc>
-nmap sn gt
-nmap sp gT
 
 set clipboard=unnamed,autoselect
 autocmd Filetype ruby set softtabstop=2
@@ -89,6 +86,7 @@ if dein#load_state('/Users/yamad07/.cache/dein')
   call dein#add('tidalcycles/vim-tidal')
 
   call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('JuliaEditorSupport/julia-vim')
   call dein#add('scrooloose/nerdtree')
   call dein#add('majutsushi/tagbar')
   call dein#add('vim-airline/vim-airline')
@@ -131,8 +129,9 @@ autocmd VimEnter * :below term ++rows=10 zsh
 autocmd VimEnter * execute 'NERDTreeToggle'
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
 nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
-nnoremap <C-n> gt
-nnoremap <C-p> gT
+nnoremap <C-t> :tabnew<CR><Esc>
+nnoremap tn gt
+nnoremap tp gT
 let g:NERDTreeDirArrows = 1
 let NERDTreeWinSize=22
 " let NERDTreeShowHidden = 1
@@ -167,7 +166,7 @@ let g:ale_sign_column_always = 1
 
 "fzf setting
 set rtp+=/usr/local/opt/fzf
-map ; :Files .<CR>
+map ; :FZF .<CR>
 
 "vim-terraform setting
 let g:terraform_align=1
