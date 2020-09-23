@@ -74,15 +74,16 @@ noremap <leader>q! :q!<CR>
 set runtimepath+=/Users/yamad07/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state('/Users/yamad07/.cache/dein')
-  call dein#begin('/Users/yamad07/.cache/dein')
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
   let s:toml = '~/.vim/dein.toml'
 
   "call dein#load_toml(s:toml, {'lazy': 0})
 
   " Let dein manage dein
   " Required:
-  call dein#add('/Users/yamad07/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+
 
   " Add or remove your plugins here:
   call dein#add('hashivim/vim-terraform')
