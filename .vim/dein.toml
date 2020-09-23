@@ -1,0 +1,9 @@
+# [dein.toml]
+
+[[plugins]]
+repo = 'Valloric/YouCompleteMe'
+merged = 0
+
+[[plugins]]
+# Lighline
+repo = 'itchyny/lightline.vim'
