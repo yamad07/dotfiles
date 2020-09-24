@@ -111,3 +111,4 @@ eval "$(rbenv init -)"
 alias vim="nvim"
 alias repos='ghq list -p | peco'
 alias repo='cd $(repos)'
+alias reponvr='repo && nvr .'

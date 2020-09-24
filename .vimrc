@@ -139,7 +139,7 @@ set tags+=./tags;
 if !has("nvim")
   autocmd VimEnter * :below term ++rows=10 zsh
 endif
-autocmd VimEnter * execute 'Defx'
+autocmd VimEnter * if @% == '' | execute 'Defx' |endif
 nnoremap <silent> <Leader>f :<C-u> Defx <CR>
 nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <Leader>t :tabnew<CR><Esc>
