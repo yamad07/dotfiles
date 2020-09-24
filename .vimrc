@@ -92,6 +92,7 @@ if dein#load_state('/Users/yamad07/.cache/dein')
   call dein#add('terryma/vim-multiple-cursors')
   call dein#add('w0rp/ale')
   call dein#add('leafgarland/typescript-vim')
+  call dein#add('slim-template/vim-slim')
 
   call dein#add('majutsushi/tagbar')
   call dein#add('vim-airline/vim-airline')
@@ -102,6 +103,8 @@ if dein#load_state('/Users/yamad07/.cache/dein')
   call dein#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' })
   call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
   call dein#add('SirVer/ultisnips')
+  call dein#add('vim-ruby/vim-ruby')
+  call dein#add('tpope/vim-rails')
   call dein#add('honza/vim-snippets')
   call dein#add('fatih/vim-go')
   " You can specify revision/branch/tag.
@@ -279,6 +282,7 @@ nnoremap <leader>gl :Git log<CR>
 nnoremap <leader>ggpush :Gpush<CR>
 nnoremap <leader>gd :Gvdiff<CR>
 nnoremap <leader>gr :Grebase -i<CR>
+nnoremap <silent><leader>repo :T reponvr<CR>
 
 "QuickFix
 let QFix_CopenCmd = 'vertical botright'
