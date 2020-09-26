@@ -7,10 +7,11 @@ set hidden
 set showcmd
 set shell=/usr/local/bin/zsh
 " setting terminal
-nnoremap <C-t><C-r> :below term<Space>++rows=10<Space>zsh<CR>
+" nnoremap <C-t><C-r> :below term<Space>++rows=10<Space>zsh<CR>
 command! -nargs=* -bar -bang -count=0 -complete=dir E Explore <args>
 noremap <S-h> ^
 noremap <S-l> $
+set splitright
 
 set cursorline
 set cursorcolumn
@@ -77,7 +78,7 @@ if dein#load_state('/Users/yamad07/.cache/dein')
   call dein#begin('/Users/yamad07/.cache/dein')
   let s:toml = '~/.vim/dein.toml'
 
-  call dein#load_toml(s:toml, {'lazy': 0})
+  "call dein#load_toml(s:toml, {'lazy': 0})
 
   " Let dein manage dein
   " Required:
@@ -110,13 +111,16 @@ if dein#load_state('/Users/yamad07/.cache/dein')
   " You can specify revision/branch/tag.
   call dein#add('Shougo/deol.nvim', { 'rev': '01203d4c9' })
   call dein#add('Shougo/defx.nvim')
+  call dein#add('Shougo/deoplete.nvim')
   call dein#add('tpope/vim-fugitive')
   call dein#add('andrewstuart/vim-kubernetes')
+  call dein#add('prabirshrestha/vim-lsp')
+  call dein#add('lighttiger2505/deoplete-vim-lsp')
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
   endif
-  call dein#add('kassio/neoterm')
+  " call dein#add('kassio/neoterm')
 
   " Required:
   call dein#end()
@@ -136,13 +140,13 @@ syntax enable
 let g:deoplete#enable_at_startup = 1
 
 set tags+=./tags;
-if !has("nvim")
-  autocmd VimEnter * :below term ++rows=10 zsh
-endif
+" if !has("nvim")
+"   autocmd VimEnter * :below term ++rows=10 zsh
+" endif
 autocmd VimEnter * if @% == '' | execute 'Defx' |endif
 nnoremap <silent> <Leader>f :<C-u> Defx <CR>
 nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
-nnoremap <Leader>t :tabnew<CR><Esc>
+nnoremap <Leader>tab :tabnew<CR><Esc>
 nnoremap tn gt
 nnoremap tp gT
 let g:NERDTreeDirArrows = 1
@@ -173,8 +177,8 @@ map ; :FZF .<CR>
 "terminal
 if has('nvim')
   tnoremap <silent> <ESC> <C-\><C-n>
-  let &runtimepath.=',~/.cache/dein/repos/github.com/kassio/neoterm'
-  let g:neoterm_default_mod = 'vertical rightbelow'
+  " let &runtimepath.=',~/.cache/dein/repos/github.com/kassio/neoterm'
+  " let g:neoterm_default_mod = 'vertical rightbelow'
 endif
 
 "tag bar
@@ -196,7 +200,6 @@ let g:ycm_auto_trigger = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_autoclose_preview_window_after_completation = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
-noremap <leader>] :YcmCompleter GoTo<CR>
 
 "defx
 nnoremap <silent><buffer><expr> <CR> defx#do_action('drop')
@@ -274,6 +277,8 @@ call defx#custom#option('_', {
       \ })
 
 "vim-fugitive"
+let $GIT_EDITOR="nvr"
+let $VISUAL="nvr"
 nnoremap <Leader>gcmsg :Git status<CR>
 nnoremap <leader>gst :tab sp<CR>:Gstatus<CR>:only<CR>
 nnoremap <leader>gaa :Gwrite<CR>
@@ -282,8 +287,25 @@ nnoremap <leader>gl :Git log<CR>
 nnoremap <leader>ggpush :Gpush<CR>
 nnoremap <leader>gd :Gvdiff<CR>
 nnoremap <leader>gr :Grebase -i<CR>
-nnoremap <silent><leader>repo :T reponvr<CR>
+"nnoremap <silent><leader>repo :T reponvr<CR>
+"nnoremap <silent><leader>g :T tig status<CR>
+nnoremap <silent><leader>term :vsplit term://zsh<CR>
+nnoremap <silent><leader>g :vsplit term://tig status<CR>
+nnoremap <silent><leader>rt :vsplit term://bundle exec rspec spec %<CR>
+nnoremap <silent><leader>rs :vsplit term://bundle exec rails server<CR>
+nnoremap <silent><leader>rc :vsplit term://bundle exec rails c<CR>
+nnoremap <silent><leader>test :vsplit term://make test FILE=%<CR>
 
 "QuickFix
 let QFix_CopenCmd = 'vertical botright'
 set winwidth=60
+
+"ruby lsp"
+if executable('solargraph')
+    " gem install solargraph
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'solargraph',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+        \ 'whitelist': ['ruby'],
+        \ })
+endif

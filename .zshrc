@@ -99,6 +99,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH="$PATH:/usr/local/bin"
 export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -107,8 +108,14 @@ eval "$(pyenv init -)"
 #rbenv
 eval "$(rbenv init -)"
 
+#nvm
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
 #alias
 alias vim="nvim"
 alias repos='ghq list -p | peco'
 alias repo='cd $(repos)'
 alias reponvr='repo && nvr .'
+alias vimrc='vim ~/.vimrc'
+alias ssh-pf='(){ssh -f -N -L ${2}:localhost:${2} ${1}}'
