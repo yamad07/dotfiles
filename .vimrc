@@ -5,7 +5,7 @@ set noswapfile
 set autoread
 set hidden
 set showcmd
-set shell=/usr/local/bin/zsh
+set shell=/usr/bin/zsh
 " setting terminal
 " nnoremap <C-t><C-r> :below term<Space>++rows=10<Space>zsh<CR>
 command! -nargs=* -bar -bang -count=0 -complete=dir E Explore <args>
@@ -59,7 +59,6 @@ filetyp plugin indent on
 autocmd BufWritePre * :%s/\s\+$//ge
 
 syntax enable
-colorscheme lucario
 
 if &compatible
   set nocompatible               " Be iMproved
