@@ -276,25 +276,21 @@ call defx#custom#option('_', {
       \ 'resume': 1,
       \ })
 
-"vim-fugitive"
+"terminal cmd"
+"tig
 let $GIT_EDITOR="nvr"
 let $VISUAL="nvr"
-nnoremap <Leader>gcmsg :Git status<CR>
-nnoremap <leader>gst :tab sp<CR>:Gstatus<CR>:only<CR>
-nnoremap <leader>gaa :Gwrite<CR>
-nnoremap <leader>gcmsg :Gcommit<CR>
-nnoremap <leader>gl :Git log<CR>
-nnoremap <leader>ggpush :Gpush<CR>
-nnoremap <leader>gd :Gvdiff<CR>
-nnoremap <leader>gr :Grebase -i<CR>
-"nnoremap <silent><leader>repo :T reponvr<CR>
-"nnoremap <silent><leader>g :T tig status<CR>
 nnoremap <silent><leader>term :vsplit term://zsh<CR>
 nnoremap <silent><leader>g :vsplit term://tig status<CR>
+
+"rails
 nnoremap <silent><leader>rt :vsplit term://bundle exec rspec spec %<CR>
 nnoremap <silent><leader>rs :vsplit term://bundle exec rails server<CR>
 nnoremap <silent><leader>rc :vsplit term://bundle exec rails c<CR>
+"make
 nnoremap <silent><leader>test :vsplit term://make test FILE=%<CR>
+"python
+nnoremap <silent><leader>py :vsplit term://python %<CR>
 
 "QuickFix
 let QFix_CopenCmd = 'vertical botright'
