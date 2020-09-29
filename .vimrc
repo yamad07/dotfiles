@@ -78,7 +78,7 @@ if dein#load_state('/Users/yamad07/.cache/dein')
   call dein#begin('/Users/yamad07/.cache/dein')
   let s:toml = '~/.vim/dein.toml'
 
-  "call dein#load_toml(s:toml, {'lazy': 0})
+  call dein#load_toml(s:toml, {'lazy': 0})
 
   " Let dein manage dein
   " Required:
@@ -284,9 +284,12 @@ nnoremap <silent><leader>term :vsplit term://zsh<CR>
 nnoremap <silent><leader>g :vsplit term://tig status<CR>
 
 "rails
-nnoremap <silent><leader>rt :vsplit term://bundle exec rspec spec %<CR>
+nnoremap <silent><leader>rt :vsplit term://bundle exec rspec %<CR>
 nnoremap <silent><leader>rs :vsplit term://bundle exec rails server<CR>
-nnoremap <silent><leader>rc :vsplit term://bundle exec rails c<CR>
+nnoremap <silent><leader>rc :vsplit term://bundle exec rails console<CR>
+nnoremap <silent><leader>rm :vsplit term://bundle exec rails db:migrate<CR>
+nnoremap <silent><leader>rr :vsplit term://bundle exec rubocop -A<CR>
+nnoremap <silent><leader>rreset :vsplit term://bundle exec rails db:reset db:migrate db:seed_fu<CR>
 "make
 nnoremap <silent><leader>test :vsplit term://make test FILE=%<CR>
 "python
@@ -295,6 +298,26 @@ nnoremap <silent><leader>py :vsplit term://python %<CR>
 "QuickFix
 let QFix_CopenCmd = 'vertical botright'
 set winwidth=60
+
+"lsp"
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> <C-]> <plug>(lsp-definition)
+  nmap <buffer> <f2> <plug>(lsp-rename)
+  nmap <buffer> <Leader>d <plug>(lsp-type-definition)
+  nmap <buffer> <Leader>r <plug>(lsp-references)
+  nmap <buffer> <Leader>i <plug>(lsp-implementation)
+  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+endfunction
+
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+
 
 "ruby lsp"
 if executable('solargraph')
@@ -305,3 +328,29 @@ if executable('solargraph')
         \ 'whitelist': ['ruby'],
         \ })
 endif
+
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+" let g:asyncomplete_auto_popup = 1
+" let g:asyncomplete_auto_completeopt = 0
+let g:asyncomplete_popup_delay = 200
+let g:lsp_text_edit_enabled = 1
+let g:lsp_preview_float = 1
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
+
+let g:lsp_settings = {}
+let g:lsp_settings['gopls'] = {
+  \  'workspace_config': {
+  \    'usePlaceholders': v:true,
+  \    'analyses': {
+  \      'fillstruct': v:true,
+  \    },
+  \  },
+  \  'initialization_options': {
+  \    'usePlaceholders': v:true,
+  \    'analyses': {
+  \      'fillstruct': v:true,
+  \    },
+  \  },
+  \}
