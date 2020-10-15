@@ -98,11 +98,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH="$PATH:/usr/local/bin"
+export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
+export COMET_API_KEY="laHAJPKUmrD2TV2dIaOWFYGkQ"
+export COMET_WORKSPACE="yamad07"
+
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
 
 #nvm
@@ -116,3 +119,5 @@ alias repo='cd $(repos)'
 alias reponvr='repo && nvr .'
 alias vimrc='vim ~/.vimrc'
 alias ssh-pf='(){ssh -f -N -L ${2}:localhost:${2} ${1}}'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

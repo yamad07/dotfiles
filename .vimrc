@@ -101,14 +101,14 @@ if dein#load_state('~/.cache/dein')
   call dein#add('kablamo/vim-git-log')
   call dein#add('tomlion/vim-solidity')
   call dein#add('jsx/jsx.vim')
-  call dein#add('junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' })
-  call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
   call dein#add('SirVer/ultisnips')
   call dein#add('vim-ruby/vim-ruby')
   call dein#add('tpope/vim-rails')
   call dein#add('honza/vim-snippets')
   call dein#add('fatih/vim-go')
   " You can specify revision/branch/tag.
+  call dein#add('junegunn/fzf', {'build': './install --all'})
+  call dein#add('junegunn/fzf.vim')
   call dein#add('Shougo/deol.nvim', { 'rev': '01203d4c9' })
   call dein#add('Shougo/defx.nvim')
   call dein#add('Shougo/deoplete.nvim')
@@ -116,6 +116,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('andrewstuart/vim-kubernetes')
   call dein#add('prabirshrestha/vim-lsp')
   call dein#add('lighttiger2505/deoplete-vim-lsp')
+  call dein#add('thinca/vim-quickrun')
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
@@ -166,7 +167,7 @@ let g:github_access_token="25a223a2b1f1c8a863798958ebe1b6d1e752ebd3"
 
 "snippets
 let g:UltiSnipsExpandTrigger="<C-s>"
-let g:UltiSnipsJumpForwardTrigger="<C-f>"
+let g:UltiSnipsJumpForwardTrigger="<C-t>"
 let g:UltiSnipsJumpBackwardTrigger="<C-b>"
 let g:UltiSnipsEditSplit="vertical"
 
@@ -287,10 +288,10 @@ nnoremap <silent><leader>g :vsplit term://tig status<CR>
 nnoremap <silent><leader>rt :vsplit term://bundle exec rspec spec %<CR>
 nnoremap <silent><leader>rs :vsplit term://bundle exec rails server<CR>
 nnoremap <silent><leader>rc :vsplit term://bundle exec rails c<CR>
+
 "make
 nnoremap <silent><leader>test :vsplit term://make test FILE=%<CR>
-"python
-nnoremap <silent><leader>py :vsplit term://python %<CR>
+
 
 "QuickFix
 let QFix_CopenCmd = 'vertical botright'
@@ -305,3 +306,22 @@ if executable('solargraph')
         \ 'whitelist': ['ruby'],
         \ })
 endif
+
+"python"
+if executable('pyls')
+    augroup LspPython
+        autocmd!
+        autocmd User lsp_setup call lsp#register_server({
+            \ 'name': 'pyls',
+            \ 'cmd': { server_info -> ['pyls'] },
+            \ 'whitelist': ['python'],
+            \})
+    augroup END
+endif
+"jump
+nnoremap <C-]> :<C-u>LspDefinition<CR>
+nnoremap K :<C-u>LspHover<CR>
+"python
+let $PYTHONPATH="."
+nnoremap <silent><leader>py :vsplit term://python %<CR>
+nnoremap <silent><leader>pt :vsplit term://pytest --pdb %<CR>
